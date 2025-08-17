@@ -11,7 +11,7 @@ type ErrOffsetOutOfRange struct {
 	Offset uint64
 }
 
-func (e ErrOffsetOutOfRange) GRPStatus() *status.Status {
+func (e ErrOffsetOutOfRange) GRPCStatus() *status.Status {
 	st := status.New(
 		404,
 		fmt.Sprintf("offset out of range: %d", e.Offset),
@@ -33,5 +33,5 @@ func (e ErrOffsetOutOfRange) GRPStatus() *status.Status {
 }
 
 func (e ErrOffsetOutOfRange) Error() string {
-	return e.GRPStatus().Err().Error()
+	return e.GRPCStatus().Err().Error()
 }

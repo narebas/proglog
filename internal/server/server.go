@@ -4,6 +4,7 @@ import (
 	"context"
 
 	api "github.com/nareba/proglog/api/v1"
+	"google.golang.org/grpc"
 )
 
 type Config struct {
@@ -11,6 +12,16 @@ type Config struct {
 }
 
 var _ api.LogServer = (*grpcServer)(nil)
+
+func NewGRPCServer(config *Config) (*grpc.Server, error) {
+	gsrv := grpc.NewServer()
+	srv, err := newgrpcServer(config)
+	if err != nil {
+		return nil, err
+	}
+	api.RegisterLogServer(gsrv, srv)
+	return gsrv, nil
+}
 
 type grpcServer struct {
 	api.UnimplementedLogServer
@@ -37,7 +48,7 @@ func (s *grpcServer) Produce(ctx context.Context, req *api.ProduceRequest) (*api
 	return &api.ProduceResponse{Offset: offset}, nil
 }
 
-func (s *grpcServer) Consume(ctx context.Context, req *api.ConsumeRequest) (*api.ConsumeRequest, error) {
+func (s *grpcServer) Consume(ctx context.Context, req *api.ConsumeRequest) (*api.ConsumeResponse, error) {
 	record, err := s.CommitLog.Read(req.Offset)
 	if err != nil {
 		return nil, err

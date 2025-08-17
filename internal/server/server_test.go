@@ -146,7 +146,7 @@ func testProduceConsumeStream(
 	}
 
 	{
-		stream, err := client.ProductStream(ctx)
+		stream, err := client.ProduceStream(ctx)
 		require.NoError(t, err)
 
 		for offset, record := range records {

@@ -9,3 +9,6 @@ RUN sudo apt-get update \
   && go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
 
 RUN go install github.com/go-task/task/v3/cmd/task@latest
+
+RUN go install github.com/cloudflare/cfssl/cmd/cfssl@latest \
+  && go install github.com/cloudflare/cfssl/cmd/cfssljson@latest

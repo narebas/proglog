@@ -1,0 +1,17 @@
+{
+  "CN": "client",
+  "hosts": [""],
+  "key": {
+    "algo": "rsa",
+    "size": 2048
+  },
+  "names": [
+    {
+      "C": "Japan",
+      "L": "Saitama",
+      "ST": "Saitama",
+      "O": "nareba",
+      "OU": "haebeal"
+    }
+  ]
+}
